@@ -1,0 +1,1414 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{hhline}
+\newlength\Oldarrayrulewidth
+\newlength\Oldtabcolsep
+\usepackage{hyperref}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Analisi Infortuni Sportivi},
+  pdfauthor={Ivan Buttignon, Pietro Mihelj, Carlotta Sbrugnera},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Analisi Infortuni Sportivi}
+\author{Ivan Buttignon, Pietro Mihelj, Carlotta Sbrugnera}
+\date{2025-06-20}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\newpage
+
+\section{ANALISY OF COLLEGE INJURIES
+DATASET}\label{analisy-of-college-injuries-dataset}
+
+\#\#Introduction
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Data pre processing}\label{data-pre-processing}
+
+To condact the analisy we need to prepare the envoirment importing or
+installing all the libraryes:
+
+Importing and reading the file saved as a CSV:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{injury\_df }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"sports\_injury\_detection\_dataset.csv"}\NormalTok{, }\AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{sep =} \StringTok{","}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Esplorazione dei dati}\label{esplorazione-dei-dati}
+
+Exploring the summary statistics of the dataset columns:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(injury\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Athlete_ID         Sport_Type        Session_Date       Heart_Rate_BPM 
+##  Length:1000        Length:1000        Length:1000        Min.   :100.0  
+##  Class :character   Class :character   Class :character   1st Qu.:118.0  
+##  Mode  :character   Mode  :character   Mode  :character   Median :137.0  
+##                                                           Mean   :138.1  
+##                                                           3rd Qu.:159.0  
+##                                                           Max.   :179.0  
+##  Respiratory_Rate_BPM Skin_Temperature_C Blood_Oxygen_Level_Percent
+##  Min.   :16.00        Min.   :36.00      Min.   : 95.00            
+##  1st Qu.:18.00        1st Qu.:36.35      1st Qu.: 96.44            
+##  Median :20.00        Median :36.75      Median : 97.66            
+##  Mean   :19.95        Mean   :36.75      Mean   : 97.61            
+##  3rd Qu.:22.00        3rd Qu.:37.13      3rd Qu.: 98.82            
+##  Max.   :24.00        Max.   :37.50      Max.   :100.00            
+##  Impact_Force_Newtons Cumulative_Fatigue_Index Activity_Type     
+##  Min.   : 50.03       Min.   :0.2024           Length:1000       
+##  1st Qu.: 83.93       1st Qu.:0.3441           Class :character  
+##  Median :119.23       Median :0.4999           Mode  :character  
+##  Mean   :121.79       Mean   :0.4986                             
+##  3rd Qu.:159.69       3rd Qu.:0.6532                             
+##  Max.   :199.64       Max.   :0.7997                             
+##  Duration_Minutes Injury_Risk_Score Injury_Occurred
+##  Min.   :20.00    Min.   :0.3341    Min.   :0.000  
+##  1st Qu.:37.00    1st Qu.:0.5214    1st Qu.:0.000  
+##  Median :56.00    Median :0.6008    Median :1.000  
+##  Mean   :55.24    Mean   :0.6013    Mean   :0.617  
+##  3rd Qu.:73.00    3rd Qu.:0.6787    3rd Qu.:1.000  
+##  Max.   :89.00    Max.   :0.8709    Max.   :1.000
+\end{verbatim}
+
+Notiamo che il dataset è composto da mille osservazioni sia con
+variabili numeriche che categoriali, decidiamo quindi di convertirne
+alcune in fattori per una gestione migliore:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{injury\_df}\SpecialCharTok{$}\NormalTok{Sport\_Type }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Sport\_Type)}
+\NormalTok{injury\_df}\SpecialCharTok{$}\NormalTok{Activity\_Type }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Activity\_Type)}
+\NormalTok{injury\_df}\SpecialCharTok{$}\NormalTok{Injury\_Occurred }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Injury\_Occurred)}
+\FunctionTok{levels}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Injury\_Occurred) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Visualizziamo tramite un barplot le frequenze assolute delle diverse
+categorie:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot\_bar}\NormalTok{(injury\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 2 columns ignored with more than 50 categories.
+## Athlete_ID: 1000 categories
+## Session_Date: 1000 categories
+\end{verbatim}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+La variabile Injury\_Occured presenta una pronunciata predominanza della
+modalità ``Yes''. Inoltre osserviamo anche frequenze divise per
+presenza/assenza di infortunio:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot\_bar}\NormalTok{(injury\_df, }\AttributeTok{by =} \StringTok{"Injury\_Occurred"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 2 columns ignored with more than 50 categories.
+## Athlete_ID: 1000 categories
+## Session_Date: 1000 categories
+\end{verbatim}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-5-1.pdf}
+\#\# Statistiche descrittive variabili numeriche
+
+Calcoliamo delle statistiche descrittive per tutte le variabili
+numeriche:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ft1 }\OtherTok{\textless{}{-}}\NormalTok{ dlookr}\SpecialCharTok{::}\FunctionTok{describe}\NormalTok{(injury\_df) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{flextable}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{colformat\_double}\NormalTok{(}\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+
+\NormalTok{ft1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: fonts used in `flextable` are ignored because the `pdflatex` engine is
+## used and not `xelatex` or `lualatex`. You can avoid this warning by using the
+## `set_flextable_defaults(fonts_ignore=TRUE)` command or use a compatible engine
+## by defining `latex_engine: xelatex` in the YAML header of the R Markdown
+## document.
+\end{verbatim}
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable}[c]{|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}}
+
+
+
+\ascline{1.5pt}{666666}{1-26}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{described\_variables}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{n}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{na}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{mean}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{sd}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{se\_mean}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{IQR}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{skewness}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{kurtosis}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p01}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p05}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p10}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p20}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p25}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p30}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p40}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p50}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p60}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p70}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p75}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p80}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p90}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p95}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p99}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p100}}} \\
+
+\ascline{1.5pt}{666666}{1-26}\endfirsthead 
+
+\ascline{1.5pt}{666666}{1-26}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{described\_variables}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{n}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{na}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{mean}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{sd}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{se\_mean}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{IQR}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{skewness}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{kurtosis}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p01}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p05}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p10}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p20}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p25}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p30}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p40}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p50}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p60}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p70}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p75}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p80}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p90}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p95}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p99}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p100}}} \\
+
+\ascline{1.5pt}{666666}{1-26}\endhead
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Heart\_Rate\_BPM}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{138.12}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{23.09}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.73}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{41.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.02}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-1.21}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{100.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{100.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{103.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{106.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{114.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{118.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{122.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{130.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{137.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{146.40}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{154.30}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{159.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{161.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{170.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{174.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{178.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{179.00}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Respiratory\_Rate\_BPM}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{19.95}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2.61}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.08}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{4.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.02}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-1.27}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{16.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{16.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{16.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{16.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{17.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{18.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{18.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{19.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{20.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{21.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{22.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{22.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{23.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{24.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{24.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{24.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{24.00}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Skin\_Temperature\_C}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36.75}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.44}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.01}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.78}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-0.02}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-1.23}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36.01}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36.07}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36.14}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36.27}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36.35}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36.43}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36.60}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36.75}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36.90}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{37.06}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{37.13}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{37.20}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{37.33}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{37.42}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{37.49}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{37.50}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Blood\_Oxygen\_Level\_Percent}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{97.61}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1.42}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.04}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{2.37}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-0.12}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-1.12}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{95.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{95.06}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{95.25}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{95.58}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{96.11}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{96.44}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{96.75}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{97.19}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{97.66}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{98.13}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{98.62}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{98.82}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{99.04}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{99.52}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{99.74}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{99.94}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{100.00}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Impact\_Force\_Newtons}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{121.79}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{43.57}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1.38}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{75.76}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.09}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-1.23}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{50.03}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{51.45}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{56.79}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{63.65}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{77.18}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{83.93}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{91.57}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{102.01}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{119.23}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{136.95}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{151.38}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{159.69}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{167.94}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{183.73}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{190.86}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{198.47}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{199.64}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Cumulative\_Fatigue\_Index}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.50}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.17}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.01}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.31}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.02}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-1.22}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.20}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.21}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.23}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.26}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.31}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.34}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.37}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.44}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.50}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.56}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.62}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.65}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.68}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.75}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.77}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.79}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.80}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Duration\_Minutes}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{55.24}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{20.37}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.64}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-0.04}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-1.21}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{20.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{20.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{23.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{27.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{35.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{37.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{41.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{48.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{56.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{62.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{70.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{73.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{76.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{83.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{87.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{89.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{89.00}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Injury\_Risk\_Score}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.60}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.11}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.00}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.16}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.07}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{-0.54}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.33}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.38}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.43}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.46}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.51}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.52}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.54}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.57}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.60}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.63}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.66}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.68}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.70}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.74}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.78}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.83}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.87}}} \\
+
+\ascline{1.5pt}{666666}{1-26}
+
+
+
+\end{longtable}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
+Le raggruppiamo anche in base alla variabile infortunio (sì/no)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ft2 }\OtherTok{\textless{}{-}}\NormalTok{ injury\_df }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{group\_by}\NormalTok{(Injury\_Occurred) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{univar\_numeric}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Adding missing grouping variables: `Injury_Occurred`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ft2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\centering
+\begin{tabular}[t]{l|l|r|r|r|r|r|r|r|r}
+\hline
+described\_variables & Injury\_Occurred & n & na & mean & sd & se\_mean & IQR & skewness & median\\
+\hline
+Blood\_Oxygen\_Level\_Percent & No & 383 & 0 & 97.58 & 1.42 & 0.07 & 2.36 & -0.13 & 97.58\\
+\hline
+Blood\_Oxygen\_Level\_Percent & Yes & 617 & 0 & 97.62 & 1.42 & 0.06 & 2.40 & -0.12 & 97.71\\
+\hline
+Cumulative\_Fatigue\_Index & No & 383 & 0 & 0.46 & 0.17 & 0.01 & 0.29 & 0.24 & 0.45\\
+\hline
+Cumulative\_Fatigue\_Index & Yes & 617 & 0 & 0.52 & 0.17 & 0.01 & 0.31 & -0.13 & 0.53\\
+\hline
+Duration\_Minutes & No & 383 & 0 & 54.45 & 20.35 & 1.04 & 35.00 & 0.04 & 55.00\\
+\hline
+Duration\_Minutes & Yes & 617 & 0 & 55.74 & 20.39 & 0.82 & 35.00 & -0.09 & 57.00\\
+\hline
+Heart\_Rate\_BPM & No & 383 & 0 & 137.30 & 22.96 & 1.17 & 39.50 & 0.04 & 137.00\\
+\hline
+Heart\_Rate\_BPM & Yes & 617 & 0 & 138.62 & 23.18 & 0.93 & 41.00 & 0.01 & 138.00\\
+\hline
+Impact\_Force\_Newtons & No & 383 & 0 & 114.83 & 42.97 & 2.20 & 73.25 & 0.30 & 108.52\\
+\hline
+Impact\_Force\_Newtons & Yes & 617 & 0 & 126.11 & 43.41 & 1.75 & 75.27 & -0.03 & 126.83\\
+\hline
+Injury\_Risk\_Score & No & 383 & 0 & 0.58 & 0.10 & 0.01 & 0.15 & 0.23 & 0.57\\
+\hline
+Injury\_Risk\_Score & Yes & 617 & 0 & 0.62 & 0.11 & 0.00 & 0.15 & -0.03 & 0.61\\
+\hline
+Respiratory\_Rate\_BPM & No & 383 & 0 & 19.98 & 2.63 & 0.13 & 4.00 & 0.00 & 20.00\\
+\hline
+Respiratory\_Rate\_BPM & Yes & 617 & 0 & 19.93 & 2.60 & 0.10 & 4.00 & 0.03 & 20.00\\
+\hline
+Skin\_Temperature\_C & No & 383 & 0 & 36.72 & 0.45 & 0.02 & 0.78 & 0.10 & 36.71\\
+\hline
+Skin\_Temperature\_C & Yes & 617 & 0 & 36.76 & 0.43 & 0.02 & 0.75 & -0.10 & 36.79\\
+\hline
+\end{tabular}
+\end{table}
+
+Notiamo, dai valori molto vicini a 0 della skewness, che le
+distribuzioni sono tutte abbastanza simmetriche sia generalmente che
+divise per la variabile target (injury\_occurred)
+
+\subsection{Analisi della normalità}\label{analisi-della-normalituxe0}
+
+Come prima cosa facciamo un test di normalità sulle distribuzioni delle
+variabili continue. Tutte le distribuzioni sembrano non seguire la
+normalità, pero il dataset ha molti dati quindi andiamo a controllare
+anche la forma delle distribuzioni ed i qq-plot per assicurarci della
+non normalità.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{normality}\NormalTok{(injury\_df) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate\_if}\NormalTok{(is.numeric, }\SpecialCharTok{\textasciitilde{}} \FunctionTok{round}\NormalTok{(., }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{flextable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: fonts used in `flextable` are ignored because the `pdflatex` engine is
+## used and not `xelatex` or `lualatex`. You can avoid this warning by using the
+## `set_flextable_defaults(fonts_ignore=TRUE)` command or use a compatible engine
+## by defining `latex_engine: xelatex` in the YAML header of the R Markdown
+## document.
+\end{verbatim}
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable}[c]{|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}}
+
+
+
+\ascline{1.5pt}{666666}{1-4}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{vars}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{statistic}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p\_value}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{sample}}} \\
+
+\ascline{1.5pt}{666666}{1-4}\endfirsthead 
+
+\ascline{1.5pt}{666666}{1-4}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{vars}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{statistic}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p\_value}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{sample}}} \\
+
+\ascline{1.5pt}{666666}{1-4}\endhead
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Heart\_Rate\_BPM}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.953}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Respiratory\_Rate\_BPM}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.927}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Skin\_Temperature\_C}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.951}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Blood\_Oxygen\_Level\_Percent}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.959}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Impact\_Force\_Newtons}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.950}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Cumulative\_Fatigue\_Index}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.952}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Duration\_Minutes}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.953}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.000}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Injury\_Risk\_Score}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.994}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.001}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+\ascline{1.5pt}{666666}{1-4}
+
+
+
+\end{longtable}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
+Verifica visiva della distribuzione con density plot:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot\_density}\NormalTok{(injury\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+Ipotizziamo una distribuzione normale solo per Injury\_Risk\_Score.
+
+Proseguiamo tracciando i QQ-plot per ogni variabile numerica, divisa per
+Injury\_Occurred, in modo da poter confrontare la distribuzione delle
+variabili con quelle di una normale
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot\_qq}\NormalTok{(injury\_df, }\AttributeTok{by =} \StringTok{"Injury\_Occurred"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-10-1.pdf}
+Notiamo che nemmeno suddividendo le distribuzioni per le classi della
+variabil etarget si trova un comportamento normale. Si compie un
+tentativo di normalizzazione tramite funzione logaritmica.
+
+\subsection{Tentativo di normalizzazione: LOG
+TRASFORMAZIONE}\label{tentativo-di-normalizzazione-log-trasformazione}
+
+Definiamo variabili da log-trasformare (solo se \textgreater= 0)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vars\_to\_plot }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+  \StringTok{"Blood\_Oxygen\_Level\_Percent"}\NormalTok{, }\StringTok{"Cumulative\_Fatigue\_Index"}\NormalTok{, }
+  \StringTok{"Duration\_Minutes"}\NormalTok{, }\StringTok{"Heart\_Rate\_BPM"}\NormalTok{, }\StringTok{"Impact\_Force\_Newtons"}\NormalTok{, }
+  \StringTok{"Injury\_Risk\_Score"}\NormalTok{, }\StringTok{"Respiratory\_Rate\_BPM"}\NormalTok{, }\StringTok{"Skin\_Temperature\_C"}
+\NormalTok{)}
+
+\NormalTok{injury\_df\_log }\OtherTok{\textless{}{-}}\NormalTok{ injury\_df }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(vars\_to\_plot), }\SpecialCharTok{\textasciitilde{}}\NormalTok{ . }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(vars\_to\_plot), log, }\AttributeTok{.names =} \StringTok{"log\_\{.col\}"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using `across()` in `filter()` was deprecated in dplyr 1.0.8.
+## i Please use `if_any()` or `if_all()` instead.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+Estraiamo variabili log trasformate per QQ-plot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{log\_vars }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"log\_"}\NormalTok{, vars\_to\_plot)}
+\NormalTok{injury\_df\_log\_subset }\OtherTok{\textless{}{-}}\NormalTok{ injury\_df\_log }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(log\_vars), Injury\_Occurred)}
+\end{Highlighting}
+\end{Shaded}
+
+Creiamo QQ-plot per le log-trasformate
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot\_qq}\NormalTok{(injury\_df\_log\_subset, }\AttributeTok{by =} \StringTok{"Injury\_Occurred"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+Effettuiamo il test della normalità:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{normality}\NormalTok{(injury\_df\_log }\SpecialCharTok{|\textgreater{}} \FunctionTok{select}\NormalTok{(}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"log\_"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate\_if}\NormalTok{(is.numeric, }\SpecialCharTok{\textasciitilde{}} \FunctionTok{round}\NormalTok{(., }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{flextable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: fonts used in `flextable` are ignored because the `pdflatex` engine is
+## used and not `xelatex` or `lualatex`. You can avoid this warning by using the
+## `set_flextable_defaults(fonts_ignore=TRUE)` command or use a compatible engine
+## by defining `latex_engine: xelatex` in the YAML header of the R Markdown
+## document.
+\end{verbatim}
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable}[c]{|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}}
+
+
+
+\ascline{1.5pt}{666666}{1-4}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{vars}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{statistic}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p\_value}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{sample}}} \\
+
+\ascline{1.5pt}{666666}{1-4}\endfirsthead 
+
+\ascline{1.5pt}{666666}{1-4}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{vars}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{statistic}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{p\_value}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{sample}}} \\
+
+\ascline{1.5pt}{666666}{1-4}\endhead
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{log\_Blood\_Oxygen\_Level\_Percent}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.959}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{log\_Cumulative\_Fatigue\_Index}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.939}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{log\_Duration\_Minutes}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.932}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{log\_Heart\_Rate\_BPM}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.951}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{log\_Impact\_Force\_Newtons}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.945}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{log\_Injury\_Risk\_Score}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.988}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{log\_Respiratory\_Rate\_BPM}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.926}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{log\_Skin\_Temperature\_C}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0.951}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{0}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,000}}} \\
+
+\ascline{1.5pt}{666666}{1-4}
+
+
+
+\end{longtable}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
+Dopo la trasformazione logaritmica, è stato eseguito nuovamente il test
+di Shapiro-Wilk per valutare la normalità delle variabili e restano non
+normali. Pertanto si preferiscono approcci non parametrici.
+
+\subsection{Analisi bivariate}\label{analisi-bivariate}
+
+\subsubsection{Variabili Categoriali}\label{variabili-categoriali}
+
+\paragraph{Sport\_Type \textasciitilde{}
+Injury\_Occured}\label{sport_type-injury_occured}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggbarstats}\NormalTok{(}\AttributeTok{data  =}\NormalTok{ injury\_df, }\AttributeTok{x =}\NormalTok{ Injury\_Occurred, }\AttributeTok{y =}\NormalTok{ Sport\_Type, }\AttributeTok{label =} \StringTok{"both"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-15-1.pdf}
+Il valore del p-value mostrato nel grafico su un test del χ2 è non
+significativo e quindi le 2 variabili non sono correlate
+
+\subsubsection{Activity\_Type \textasciitilde{}
+Injury\_Occured}\label{activity_type-injury_occured}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggbarstats}\NormalTok{(}\AttributeTok{data  =}\NormalTok{ injury\_df, }\AttributeTok{x =}\NormalTok{ Injury\_Occurred, }\AttributeTok{y =}\NormalTok{ Activity\_Type, }\AttributeTok{label =} \StringTok{"both"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+Anche in questo caso si possono trarre le stesse conclusioni della
+precedente analisi, in quanto essendo il p-value troppo elevato non ci
+aspettiamo una relazione tra le attivite praticate e le lesioni subite.
+
+\subsubsection{Variabili Continue}\label{variabili-continue}
+
+andiamo a utilizzare una serie di boxplot per vedere quali variabili
+continue sono interessanti
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot\_boxplot}\NormalTok{(injury\_df, }\AttributeTok{by =} \StringTok{"Injury\_Occurred"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-17-1.pdf}
+Notiamo che le variabili che sembrano avere una differenza tra le medie
+sono solamente: Cumulative\_Fatigue\_Index,
+Impact\_Force\_Newtons,Injury\_Risk\_Score. Andiamo quindi a vedere come
+queste si comportano e se sono effettivamente interessanti
+
+\paragraph{Impact\_force\_newton \textasciitilde{}
+Injury\_Occured}\label{impact_force_newton-injury_occured}
+
+Andiamo ad applicare il test di Mann-Whitney non parametrico per
+confrontare l'impatto della forza tra soggetti con e senza infortunio.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggbetweenstats}\NormalTok{(}\AttributeTok{data =}\NormalTok{ injury\_df, }\AttributeTok{x =}\NormalTok{ Injury\_Occurred, }\AttributeTok{y =}\NormalTok{ Impact\_Force\_Newtons, }\AttributeTok{type =} \StringTok{"np"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-18-1.pdf}
+Dal test appena effettuato ricaviamo che le forze d'impatto nei soggetti
+con infortunio sono significativamente diverse da quelle nei soggetti
+senza infortunio, suggerendo che un impatto maggiore potrebbe essere
+associato ad un rischio aumentato di infortunio. Quindi la variabile
+sarà utile da usare in un modello predittivo
+
+\paragraph{Cumulative\_Fatigue\_Index \textasciitilde{}
+Injury\_Occured}\label{cumulative_fatigue_index-injury_occured}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggbetweenstats}\NormalTok{(}\AttributeTok{data =}\NormalTok{ injury\_df, }\AttributeTok{x =}\NormalTok{ Injury\_Occurred, }\AttributeTok{y =}\NormalTok{ Cumulative\_Fatigue\_Index, }\AttributeTok{type =} \StringTok{"np"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-19-1.pdf}
+Anche in questo caso notiamo come nei soggetti più affaticati siano più
+comuni lesioni. Le conclusioni sono quindi analoghe al caso precedente
+
+\paragraph{Injury\_Risk\_Score \textasciitilde{}
+Injury\_Occured}\label{injury_risk_score-injury_occured}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggbetweenstats}\NormalTok{(}\AttributeTok{data =}\NormalTok{ injury\_df, }\AttributeTok{x =}\NormalTok{ Injury\_Occurred, }\AttributeTok{y =}\NormalTok{ Injury\_Risk\_Score, }\AttributeTok{type =} \StringTok{"np"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-20-1.pdf}
+La differenza tra le medie è chiaramente rilevante in questa occasione.
+Non ci piace molto però il fatto che le distribuzioni siano abbastanza
+simili nelle 2 classi. Ci aspetteremmo invece che la distribuzione tra i
+non infortunati sia molto concentrata in basso con una coda verso i
+valori più alti, e viceversa per chi ha subito infortuni. questo ci
+porta a voler creare un nuovo metodo per dare una probabilità di
+infortunio.
+
+\subsection{Confaunders}\label{confaunders}
+
+Diventa adesso necessario verificare la presenza di confaunder per le
+variabili che abbiamo individiato come interessanti.
+
+\subsubsection{Matrice di correlazione (Spearman) per variabili
+numeriche}\label{matrice-di-correlazione-spearman-per-variabili-numeriche}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cc }\OtherTok{\textless{}{-}} \FunctionTok{correlate}\NormalTok{(injury\_df[,}\SpecialCharTok{{-}}\DecValTok{12}\NormalTok{], }\AttributeTok{method=}\StringTok{"spearman"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(cc)}\SpecialCharTok{+}
+\NormalTok{  ggplot2}\SpecialCharTok{::}\FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =}\NormalTok{ ggplot2}\SpecialCharTok{::}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{, }\AttributeTok{size =} \DecValTok{8}\NormalTok{),}
+                 \AttributeTok{axis.text.y =}\NormalTok{ ggplot2}\SpecialCharTok{::}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{8}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-21-1.pdf}
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-21-2.pdf}
+Innanzitutto bisogna far notare che abbiamo tolto la variabile
+injury\_risk\_score poichè è qualcosa di artificialmente calcolato,
+quindi non tecnicamente una caratteristica del dato, ed è ora diventato
+un target da ricalcolare. oltre a ciò notiamo che tutte le correlazioni
+sono praticamente nulle e non rilevanti. Concludiamo quindi che non ci
+sono confaunders tra le variabili numeriche
+
+\subsubsection{Test di Kurskal-Wallis per variabili
+categoriali}\label{test-di-kurskal-wallis-per-variabili-categoriali}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{I\_S }\OtherTok{\textless{}{-}} \FunctionTok{kruskal.test}\NormalTok{(Impact\_Force\_Newtons }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Sport\_Type, }\AttributeTok{data =}\NormalTok{ injury\_df)}
+\NormalTok{I\_A }\OtherTok{\textless{}{-}} \FunctionTok{kruskal.test}\NormalTok{(Impact\_Force\_Newtons }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Activity\_Type, }\AttributeTok{data =}\NormalTok{ injury\_df)}
+\NormalTok{C\_S }\OtherTok{\textless{}{-}} \FunctionTok{kruskal.test}\NormalTok{(Cumulative\_Fatigue\_Index }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Sport\_Type, }\AttributeTok{data =}\NormalTok{ injury\_df)}
+\NormalTok{C\_A }\OtherTok{\textless{}{-}} \FunctionTok{kruskal.test}\NormalTok{(Cumulative\_Fatigue\_Index }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Activity\_Type, }\AttributeTok{data =}\NormalTok{ injury\_df)}
+
+\NormalTok{tavola }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{K\_W\_Value =} \FunctionTok{c}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(I\_S}\SpecialCharTok{$}\NormalTok{statistic), }\FunctionTok{as.numeric}\NormalTok{(I\_A}\SpecialCharTok{$}\NormalTok{statistic), }\FunctionTok{as.numeric}\NormalTok{(C\_S}\SpecialCharTok{$}\NormalTok{statistic), }\FunctionTok{as.numeric}\NormalTok{(C\_A}\SpecialCharTok{$}\NormalTok{statistic)),}
+  \AttributeTok{p\_Value =} \FunctionTok{c}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(I\_S}\SpecialCharTok{$}\NormalTok{p.value), }\FunctionTok{as.numeric}\NormalTok{(I\_A}\SpecialCharTok{$}\NormalTok{p.value), }\FunctionTok{as.numeric}\NormalTok{(C\_S}\SpecialCharTok{$}\NormalTok{p.value), }\FunctionTok{as.numeric}\NormalTok{(C\_A}\SpecialCharTok{$}\NormalTok{p.value))}
+\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(tavola) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Impact\_Force\_Newtons \textasciitilde{} Sport\_Type"}\NormalTok{, }\StringTok{"Impact\_Force\_Newtons \textasciitilde{} Activity\_Type"}\NormalTok{, }\StringTok{"Cumulative\_Fatigue\_Index \textasciitilde{} Sport\_Type"}\NormalTok{, }\StringTok{"Cumulative\_Fatigue\_Index \textasciitilde{} Activity\_Type"}\NormalTok{)}
+\NormalTok{tavola}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                          K_W_Value   p_Value
+## Impact_Force_Newtons ~ Sport_Type         1.277495 0.8651822
+## Impact_Force_Newtons ~ Activity_Type      2.255690 0.6888475
+## Cumulative_Fatigue_Index ~ Sport_Type     4.383523 0.3565830
+## Cumulative_Fatigue_Index ~ Activity_Type  5.466710 0.2426713
+\end{verbatim}
+
+Andando a vedere i p-Value notiamo facilmente che nessuna delle coppie
+ha una relazione significativa. Quindi nemmeno tra le variabili
+categoriali ci sono dei confaunders
+
+\subsection{Modello predittivo}\label{modello-predittivo}
+
+\subsubsection{Regressione logistica}\label{regressione-logistica}
+
+Costruiamo un modello logistico con solo due variabili
+(Impact\_Force\_Newtons e Cumulative\_Fatigue\_Index), poichè abbiamo
+gia osservato essere le uniche con una relazione significativa verso la
+variabile target.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred1 }\OtherTok{=} \FunctionTok{glm}\NormalTok{(}\AttributeTok{data =}\NormalTok{ injury\_df, Injury\_Occurred }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Impact\_Force\_Newtons }\SpecialCharTok{+}\NormalTok{ Cumulative\_Fatigue\_Index, }\AttributeTok{family =}\NormalTok{ binomial)}
+\FunctionTok{summary}\NormalTok{(pred1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = Injury_Occurred ~ Impact_Force_Newtons + Cumulative_Fatigue_Index, 
+##     family = binomial, data = injury_df)
+## 
+## Coefficients:
+##                           Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)              -1.179079   0.274210  -4.300 1.71e-05 ***
+## Impact_Force_Newtons      0.006081   0.001543   3.941 8.11e-05 ***
+## Cumulative_Fatigue_Index  1.878451   0.385348   4.875 1.09e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1331.0  on 999  degrees of freedom
+## Residual deviance: 1290.7  on 997  degrees of freedom
+## AIC: 1296.7
+## 
+## Number of Fisher Scoring iterations: 4
+\end{verbatim}
+
+I p-value confermano la significatività delle variabili. Calcoliamo le
+probabilità di infortunio per ogni osservazione e classifichiamo in base
+a una soglia di 0.5.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prob }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(pred1, }\AttributeTok{type =} \StringTok{"response"}\NormalTok{)}
+\NormalTok{pred\_class }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(prob }\SpecialCharTok{\textgreater{}} \FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Creiamo la matrice di confusione per confrontare le predizioni con i
+dati reali e calcoliamo le metriche: accuracy, sensitivity, specificity.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{conf\_matrix }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\AttributeTok{Predicted =}\NormalTok{ pred\_class, }\AttributeTok{Actual =}\NormalTok{ injury\_df}\SpecialCharTok{$}\NormalTok{Injury\_Occurred)}
+\FunctionTok{print}\NormalTok{(conf\_matrix)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Actual
+## Predicted  No Yes
+##         0  71  57
+##         1 312 560
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TP }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{]}
+\NormalTok{TN }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{]}
+\NormalTok{FP }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{]}
+\NormalTok{FN }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{]}
+
+\NormalTok{accuracy }\OtherTok{\textless{}{-}}\NormalTok{ (TP }\SpecialCharTok{+}\NormalTok{ TN) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(conf\_matrix)}
+\NormalTok{sensitivity }\OtherTok{\textless{}{-}}\NormalTok{ TP }\SpecialCharTok{/}\NormalTok{ (TP }\SpecialCharTok{+}\NormalTok{ FN) }
+\NormalTok{specificity }\OtherTok{\textless{}{-}}\NormalTok{ TN }\SpecialCharTok{/}\NormalTok{ (TN }\SpecialCharTok{+}\NormalTok{ FP) }
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Accuracy: "}\NormalTok{, }\FunctionTok{round}\NormalTok{(accuracy, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Accuracy:  0.631
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Sensitivity (Recall): "}\NormalTok{, }\FunctionTok{round}\NormalTok{(sensitivity, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Sensitivity (Recall):  0.908
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Specificity: "}\NormalTok{, }\FunctionTok{round}\NormalTok{(specificity, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Specificity:  0.185
+\end{verbatim}
+
+Costruiamo la curva ROC e calcoliamo l'AUC per valutare la capacità
+discriminante del modello su tutte le soglie.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{roc\_obj }\OtherTok{\textless{}{-}} \FunctionTok{roc}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Injury\_Occurred, prob)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Setting levels: control = No, case = Yes
+\end{verbatim}
+
+\begin{verbatim}
+## Setting direction: controls < cases
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{auc\_val }\OtherTok{\textless{}{-}} \FunctionTok{auc}\NormalTok{(roc\_obj)}
+\FunctionTok{plot}\NormalTok{(roc\_obj, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{main =} \StringTok{"ROC Curve"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{a =} \DecValTok{0}\NormalTok{, }\AttributeTok{b =} \DecValTok{1}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{"gray"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"AUC: "}\NormalTok{, }\FunctionTok{round}\NormalTok{(auc\_val, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## AUC:  0.616
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{residualPlots}\NormalTok{(pred1)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-27-1.pdf}
+
+\begin{verbatim}
+##                          Test stat Pr(>|Test stat|)
+## Impact_Force_Newtons        0.1505           0.6981
+## Cumulative_Fatigue_Index    0.1881           0.6645
+\end{verbatim}
+
+I risultati di ROC e acuracy non sono soddisfacenti. D'altro canto i
+residui sono invece buoni, i test confermano che non ci sono delle
+relazioni non lineari. L'unica cosa strana che notiamo è un po di
+scostamento agli estremi ed una leggera forma curva. Andiamo quindi a
+considerare la relazione tra le 2 variabili per vedere se un modello
+complesso porta prestazioni migliori
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred2 }\OtherTok{=} \FunctionTok{glm}\NormalTok{(}\AttributeTok{data =}\NormalTok{ injury\_df, Injury\_Occurred }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Impact\_Force\_Newtons}\SpecialCharTok{*}\NormalTok{Cumulative\_Fatigue\_Index, }\AttributeTok{family =}\NormalTok{ binomial)}
+\FunctionTok{summary}\NormalTok{(pred2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = Injury_Occurred ~ Impact_Force_Newtons * Cumulative_Fatigue_Index, 
+##     family = binomial, data = injury_df)
+## 
+## Coefficients:
+##                                                Estimate Std. Error z value
+## (Intercept)                                   -1.031008   0.580966  -1.775
+## Impact_Force_Newtons                           0.004866   0.004479   1.086
+## Cumulative_Fatigue_Index                       1.576337   1.113903   1.415
+## Impact_Force_Newtons:Cumulative_Fatigue_Index  0.002490   0.008621   0.289
+##                                               Pr(>|z|)  
+## (Intercept)                                      0.076 .
+## Impact_Force_Newtons                             0.277  
+## Cumulative_Fatigue_Index                         0.157  
+## Impact_Force_Newtons:Cumulative_Fatigue_Index    0.773  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1331.0  on 999  degrees of freedom
+## Residual deviance: 1290.6  on 996  degrees of freedom
+## AIC: 1298.6
+## 
+## Number of Fisher Scoring iterations: 4
+\end{verbatim}
+
+I p-value che osserviamo non ci fanno ben sperare. Ed infatti le
+prestazioni non sono migliorate
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prob }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(pred2, }\AttributeTok{type =} \StringTok{"response"}\NormalTok{)}
+\NormalTok{pred\_class }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(prob }\SpecialCharTok{\textgreater{}} \FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{conf\_matrix }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\AttributeTok{Predicted =}\NormalTok{ pred\_class, }\AttributeTok{Actual =}\NormalTok{ injury\_df}\SpecialCharTok{$}\NormalTok{Injury\_Occurred)}
+\FunctionTok{print}\NormalTok{(conf\_matrix)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Actual
+## Predicted  No Yes
+##         0  66  54
+##         1 317 563
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TP }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{]}
+\NormalTok{TN }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{]}
+\NormalTok{FP }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{]}
+\NormalTok{FN }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{]}
+
+\NormalTok{accuracy }\OtherTok{\textless{}{-}}\NormalTok{ (TP }\SpecialCharTok{+}\NormalTok{ TN) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(conf\_matrix)}
+\NormalTok{sensitivity }\OtherTok{\textless{}{-}}\NormalTok{ TP }\SpecialCharTok{/}\NormalTok{ (TP }\SpecialCharTok{+}\NormalTok{ FN) }
+\NormalTok{specificity }\OtherTok{\textless{}{-}}\NormalTok{ TN }\SpecialCharTok{/}\NormalTok{ (TN }\SpecialCharTok{+}\NormalTok{ FP) }
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Accuracy: "}\NormalTok{, }\FunctionTok{round}\NormalTok{(accuracy, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Accuracy:  0.629
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Sensitivity (Recall): "}\NormalTok{, }\FunctionTok{round}\NormalTok{(sensitivity, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Sensitivity (Recall):  0.912
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Specificity: "}\NormalTok{, }\FunctionTok{round}\NormalTok{(specificity, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Specificity:  0.172
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{roc\_obj }\OtherTok{\textless{}{-}} \FunctionTok{roc}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Injury\_Occurred, prob)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Setting levels: control = No, case = Yes
+\end{verbatim}
+
+\begin{verbatim}
+## Setting direction: controls < cases
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{auc\_val }\OtherTok{\textless{}{-}} \FunctionTok{auc}\NormalTok{(roc\_obj)}
+\FunctionTok{plot}\NormalTok{(roc\_obj, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{main =} \StringTok{"ROC Curve"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{a =} \DecValTok{0}\NormalTok{, }\AttributeTok{b =} \DecValTok{1}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{"gray"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-29-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"AUC: "}\NormalTok{, }\FunctionTok{round}\NormalTok{(auc\_val, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## AUC:  0.616
+\end{verbatim}
+
+Proviamo quindi ad utilizzare un modello completamente diverso. Per
+poter mantenere un minimo di spiegabilità usiamo degli alberi
+
+\subsubsection{Decision tree}\label{decision-tree}
+
+Costruiamo un albero con le stesse due variabili usate nella regressione
+logistica: Impostiamo i parametri di complessità e di minimo split per
+evitare overfitting.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tree\_model }\OtherTok{\textless{}{-}} \FunctionTok{rpart}\NormalTok{(Injury\_Occurred }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Impact\_Force\_Newtons }\SpecialCharTok{+}\NormalTok{ Cumulative\_Fatigue\_Index,}
+                    \AttributeTok{data =}\NormalTok{ injury\_df, }\AttributeTok{method =} \StringTok{"class"}\NormalTok{, }\AttributeTok{control =} \FunctionTok{rpart.control}\NormalTok{(}\AttributeTok{minsplit =} \DecValTok{20}\NormalTok{, }\AttributeTok{cp =} \FloatTok{0.001}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Procediamo a visualizzare l'albero
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rpart.plot}\NormalTok{(tree\_model, }\AttributeTok{type =} \DecValTok{3}\NormalTok{, }\AttributeTok{extra =} \DecValTok{102}\NormalTok{, }\AttributeTok{fallen.leaves =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: labs do not fit even at cex 0.15, there may be some overplotting
+\end{verbatim}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-31-1.pdf}
+
+Effettuiamo la predizione delle classi e calcoliamo la matrice di
+confusione per valutare il modello.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred\_class }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(tree\_model, }\AttributeTok{type =} \StringTok{"class"}\NormalTok{)  }
+\NormalTok{pred\_prob }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(tree\_model)[, }\DecValTok{2}\NormalTok{]             }
+
+\NormalTok{conf\_matrix }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\AttributeTok{Predicted =}\NormalTok{ pred\_class, }\AttributeTok{Actual =}\NormalTok{ injury\_df}\SpecialCharTok{$}\NormalTok{Injury\_Occurred)}
+\FunctionTok{print}\NormalTok{(conf\_matrix)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Actual
+## Predicted  No Yes
+##       No  232  88
+##       Yes 151 529
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TP }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\StringTok{"Yes"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{]}
+\NormalTok{TN }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\StringTok{"No"}\NormalTok{, }\StringTok{"No"}\NormalTok{]}
+\NormalTok{FP }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\StringTok{"Yes"}\NormalTok{, }\StringTok{"No"}\NormalTok{]}
+\NormalTok{FN }\OtherTok{\textless{}{-}}\NormalTok{ conf\_matrix[}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{]}
+
+\NormalTok{accuracy }\OtherTok{\textless{}{-}}\NormalTok{ (TP }\SpecialCharTok{+}\NormalTok{ TN) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(conf\_matrix)}
+\NormalTok{sensitivity }\OtherTok{\textless{}{-}}\NormalTok{ TP }\SpecialCharTok{/}\NormalTok{ (TP }\SpecialCharTok{+}\NormalTok{ FN)}
+\NormalTok{specificity }\OtherTok{\textless{}{-}}\NormalTok{ TN }\SpecialCharTok{/}\NormalTok{ (TN }\SpecialCharTok{+}\NormalTok{ FP)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Accuracy: "}\NormalTok{, }\FunctionTok{round}\NormalTok{(accuracy, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Accuracy:  0.761
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Sensitivity: "}\NormalTok{, }\FunctionTok{round}\NormalTok{(sensitivity, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Sensitivity:  0.857
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Specificity: "}\NormalTok{, }\FunctionTok{round}\NormalTok{(specificity, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Specificity:  0.606
+\end{verbatim}
+
+Valutiamo la performance del modello ad albero con la curva ROC e
+calcolo dell'AUC.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 7. ROC Curve e AUC}
+\NormalTok{roc\_obj }\OtherTok{\textless{}{-}} \FunctionTok{roc}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Injury\_Occurred, pred\_prob)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Setting levels: control = No, case = Yes
+\end{verbatim}
+
+\begin{verbatim}
+## Setting direction: controls < cases
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{auc\_val }\OtherTok{\textless{}{-}} \FunctionTok{auc}\NormalTok{(roc\_obj)}
+
+\FunctionTok{plot}\NormalTok{(roc\_obj, }\AttributeTok{col =} \StringTok{"darkred"}\NormalTok{, }\AttributeTok{main =} \StringTok{"ROC Curve {-} Decision Tree"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{a =} \DecValTok{0}\NormalTok{, }\AttributeTok{b =} \DecValTok{1}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{"gray"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-33-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"AUC: "}\NormalTok{, }\FunctionTok{round}\NormalTok{(auc\_val, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## AUC:  0.807
+\end{verbatim}
+
+Valutiamo infine la calibrazione del modello per controllare che
+funzioni bene su tutto lo spettro delle predizioni
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hoslem.test}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Injury\_Occurred)), pred\_prob, }\AttributeTok{g =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in hoslem.test(as.numeric(as.character(injury_df$Injury_Occurred)), :
+## NA introdotti per coercizione
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Hosmer and Lemeshow goodness of fit (GOF) test
+## 
+## data:  as.numeric(as.character(injury_df$Injury_Occurred)), pred_prob
+## X-squared = 1000, df = 8, p-value < 2.2e-16
+\end{verbatim}
+
+Il p-Value è significativo e l'AUC è anche buono 0.807. Questo
+suggerisce una buona calibrazione del modello. Per assicurarcene andiamo
+a vedere un calibration plot, poichè il test usato è più adatto a
+modelli parametrici.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{obs =} \FunctionTok{factor}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Injury\_Occurred), }\AttributeTok{pred =}\NormalTok{ pred\_prob)}
+\NormalTok{cal }\OtherTok{\textless{}{-}} \FunctionTok{calibration}\NormalTok{(obs }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pred, }\AttributeTok{data =}\NormalTok{ df, }\AttributeTok{class =} \StringTok{"Yes"}\NormalTok{, }\AttributeTok{cuts =} \DecValTok{10}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(cal)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-35-1.pdf}
+Il calibration plot conferma che l'albero è ben calibrato ed è quindi un
+buon modello di predizione.
+
+\subsection{New Injury\_Risk\_Table}\label{new-injury_risk_table}
+
+We now want to build a sort of look-up table for the Injury risk
+probability given by the tree and we thought to build a sort of heatmap
+on the Cumulative\_fatigue\_index - Impact\_Force\_Newton plane.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x\_seq }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}
+  \AttributeTok{from =} \FunctionTok{min}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Impact\_Force\_Newtons, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+  \AttributeTok{to   =} \FunctionTok{max}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Impact\_Force\_Newtons, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+  \AttributeTok{length.out =} \DecValTok{500}    \CommentTok{\# risoluzione aumentata}
+\NormalTok{)}
+\NormalTok{y\_seq }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}
+  \AttributeTok{from =} \FunctionTok{min}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Cumulative\_Fatigue\_Index, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+  \AttributeTok{to   =} \FunctionTok{max}\NormalTok{(injury\_df}\SpecialCharTok{$}\NormalTok{Cumulative\_Fatigue\_Index, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+  \AttributeTok{length.out =} \DecValTok{500}
+\NormalTok{)}
+\NormalTok{grid }\OtherTok{\textless{}{-}} \FunctionTok{expand.grid}\NormalTok{(}
+  \AttributeTok{Impact\_Force\_Newtons     =}\NormalTok{ x\_seq,}
+  \AttributeTok{Cumulative\_Fatigue\_Index =}\NormalTok{ y\_seq}
+\NormalTok{)}
+\NormalTok{grid}\SpecialCharTok{$}\NormalTok{pred\_prob }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(}
+\NormalTok{  tree\_model,}
+  \AttributeTok{newdata =}\NormalTok{ grid,}
+  \AttributeTok{type   =} \StringTok{"prob"}
+\NormalTok{)[, }\StringTok{"Yes"}\NormalTok{]}
+
+\NormalTok{grid}\SpecialCharTok{$}\NormalTok{fill }\OtherTok{\textless{}{-}} \FunctionTok{with}\NormalTok{(grid,}
+  \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(pred\_prob), }\StringTok{"green"}\NormalTok{,}
+    \FunctionTok{ifelse}\NormalTok{(pred\_prob }\SpecialCharTok{\textgreater{}} \FloatTok{0.75}\NormalTok{, }\StringTok{"red"}\NormalTok{,}
+      \FunctionTok{ifelse}\NormalTok{(pred\_prob }\SpecialCharTok{\textgreater{}} \FloatTok{0.5}\NormalTok{, }\StringTok{"yellow"}\NormalTok{, }\StringTok{"green"}\NormalTok{)}
+\NormalTok{    )}
+\NormalTok{  )}
+\NormalTok{)}
+
+\NormalTok{grid }\OtherTok{\textless{}{-}}\NormalTok{ grid }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{prob\_range =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{    fill }\SpecialCharTok{==} \StringTok{"green"}  \SpecialCharTok{\textasciitilde{}} \StringTok{"0.0{-}0.50"}\NormalTok{,}
+\NormalTok{    fill }\SpecialCharTok{==} \StringTok{"yellow"} \SpecialCharTok{\textasciitilde{}} \StringTok{"0.50{-}0.75"}\NormalTok{,}
+\NormalTok{    fill }\SpecialCharTok{==} \StringTok{"red"}    \SpecialCharTok{\textasciitilde{}} \StringTok{"\textgreater{} 0.75"}\NormalTok{,}
+    \ConstantTok{TRUE}             \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{  )) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{prob\_range =} \FunctionTok{factor}\NormalTok{(prob\_range,}
+    \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"\textgreater{} 0.75"}\NormalTok{,}\StringTok{"0.0{-}0.50"}\NormalTok{, }\StringTok{"0.50{-}0.75"}\NormalTok{)}
+\NormalTok{  ))}
+
+
+\FunctionTok{ggplot}\NormalTok{(grid, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Impact\_Force\_Newtons, }\AttributeTok{y =}\NormalTok{ Cumulative\_Fatigue\_Index)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_tile}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{fill =}\NormalTok{ prob\_range), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}
+    \AttributeTok{name =} \StringTok{"Probabilità}\SpecialCharTok{\textbackslash{}n}\StringTok{Infortunio"}\NormalTok{,}
+    \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+      \StringTok{"0.0{-}0.50"} \OtherTok{=} \StringTok{"green"}\NormalTok{,}
+      \StringTok{"0.50{-}0.75"} \OtherTok{=} \StringTok{"yellow"}\NormalTok{,}
+      \StringTok{"\textgreater{} 0.75"} \OtherTok{=} \StringTok{"red"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{x =} \StringTok{"Impact Force (Newtons)"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Cumulative Fatigue Index"}\NormalTok{,}
+    \AttributeTok{title =} \StringTok{"Injury Probability"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{14}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Statistical_learning_in_epidemiology_files/figure-latex/unnamed-chunk-36-1.pdf}
+
+\subsection{\#\#Conclusioni}\label{conclusioni}
+
+\end{document}

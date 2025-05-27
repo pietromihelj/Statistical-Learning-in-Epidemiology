@@ -1,0 +1,514 @@
+---
+title: "Analisi Infortuni Sportivi"
+author: "Ivan Buttignon, Pietro Mihelj, Carlotta Sbrugnera"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+date: "2025-06-20"
+---
+
+\newpage
+
+# ANALYSIS OF COLLEGE INJURIES DATASET 
+
+##Introduction
+
+Sports injuries are a common issue in college athletics that could be source of various annoying implications for athletes' healt. The aim of this project is to explore a dataset on college sports injuries to identify potential patterns, risk factors, and predictive insights. Through statistical learning techniques, we want to conduct an exploratory data analysis, evaluate relevant variables, and develop classification models to predict injury events. By applying logistic regression and decision tree algorithms, we aim to gain a deeper understanding of the main factors that contribute to sports injuries. We also estimate the effectiveness of different modeling approaches. This analysis can offer valuable support for injury prevention strategies and data-driven decision-making in sports contexts.
+
+## Data pre processing
+
+In this initial chunk, we configure the environment and ensure that all necessary packages are installed and loaded:
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+if (!require(dplyr)) install.packages("dplyr")
+library(dbplyr)
+if (!require(DataExplorer)) install.packages("DataExplorer")
+library(DataExplorer)
+if (!require(ggstatsplot)) install.packages("ggstatsplot")
+library(ggstatsplot)
+if (!require(dlookr)) install.packages("dlookr")
+library(dlookr)
+if (!require(flextable)) install.packages("flextable")
+library(flextable)
+if (!require(ggpubr)) install.packages("ggpubr")
+library(ggpubr)
+if (!require(SmartEDA)) install.packages("SmartEDA")
+library(SmartEDA)
+if (!require(performance)) install.packages("performance")
+library(performance)
+if (!require(tidyr)) install.packages("tidyr")
+library(tidyr)
+if (!require(ResourceSelection)) install.packages("ResourceSelection")
+library(ResourceSelection)
+if (!require(ggplot2)) install.packages("ggplot2")
+library(ggplot2)
+if (!require(pROC)) install.packages("pROC")
+library(pROC)
+if (!require(rpart)) install.packages("rpart")
+library(rpart)
+if (!require(rpart.plot)) install.packages("rpart.plot")
+library(rpart.plot)
+if (!require(car)) install.packages("car")
+library(car)
+if (!require(lattice)) install.packages("lattice")
+library(lattice)
+if (!require(caret)) install.packages("caret")
+library(caret)
+
+```
+
+We begin the analysis by importing the dataset, which is stored in CSV format:
+
+```{r}
+injury_df <- read.csv("sports_injury_detection_dataset.csv", header = TRUE, sep = ",")
+```
+
+## Data exploration
+
+In order to gain an overview of the variables we need a preliminary summary of the dataset; now we can identify possible missing values, and check for unexpected events:
+
+```{r}
+summary(injury_df)
+```
+
+The dataset contains 1,000 observations and includes both numerical and categorical variables. Some of these categorical variables are not currently recognized as factors in R, so we convert them accordingly to facilitate analysis:
+
+```{r}
+injury_df$Sport_Type <- as.factor(injury_df$Sport_Type)
+injury_df$Activity_Type <- as.factor(injury_df$Activity_Type)
+injury_df$Injury_Occurred <- as.factor(injury_df$Injury_Occurred)
+levels(injury_df$Injury_Occurred) <- c("No", "Yes")
+```
+
+We then visualize the distribution of the variables:
+
+```{r}
+plot_bar(injury_df)
+```
+
+The variable Injury_Occurred exhibits a strong imbalance, with the "Yes" category being significantly more frequent.
+Furthermore, we examined the distribution of injuries by presence or absence:
+
+```{r}
+plot_bar(injury_df, by = "Injury_Occurred")
+```
+
+## Descriptive statistics for the numerical variables
+
+We compute descriptive statistics for all numerical variables:
+
+```{r}
+ft1 <- dlookr::describe(injury_df) |> 
+  flextable() |> 
+  colformat_double(digits = 2)
+
+ft1
+```
+
+We also group the statistics by the injury status (Yes/No):
+
+```{r}
+ft2 <- injury_df |>
+  group_by(Injury_Occurred) |>
+  univar_numeric() |>
+  knitr::kable(digits = 2)
+
+ft2
+```
+
+From the skewness values, which are generally very close to zero, we observe that the distributions of the numerical variables are approximately symmetric—both overall and when stratified by the target variable Injury_Occurred.
+
+## Normality Analysis
+
+As a first step, we perform a normality test on the distributions of the continuous variables. Based on the test results, none of the variables appear to follow a normal distribution. However, given the large sample size in the dataset, we also inspect the shape of the distributions and the Q-Q plots to further assess the assumption of non-normality.
+
+```{r}
+normality(injury_df) |>
+  mutate_if(is.numeric, ~ round(., 3)) |>
+  flextable()
+```
+
+A visual assessment of the distributions is provided using density plots:
+
+```{r}
+plot_density(injury_df)
+```
+
+Based on the visual inspection, we hypothesize that a normal distribution may be appropriate only for the variable Injury_Risk_Score.
+
+We proceed by plotting Q-Q plots for each numerical variable, grouped by the Injury_Occurred variable. This allows us to visually compare the empirical distributions of the variables with a theoretical normal distribution.
+
+```{r}
+plot_qq(injury_df, by = "Injury_Occurred")
+```
+
+Even when stratifying the distributions by the target variable, we do not observe patterns consistent with normality. As a result, we attempt to normalize the data using a logarithmic transformation.
+
+## Attempted Normalization: LOG TRANSOFORMATION
+
+Definiamo variabili da log-trasformare (solo se \>= 0)
+We define variables to be log-transformed (only if values are ≥ 0)
+
+```{r}
+vars_to_plot <- c(
+  "Blood_Oxygen_Level_Percent", "Cumulative_Fatigue_Index", 
+  "Duration_Minutes", "Heart_Rate_BPM", "Impact_Force_Newtons", 
+  "Injury_Risk_Score", "Respiratory_Rate_BPM", "Skin_Temperature_C"
+)
+
+injury_df_log <- injury_df |>
+  filter(across(all_of(vars_to_plot), ~ . > 0)) |>
+  mutate(across(all_of(vars_to_plot), log, .names = "log_{.col}"))
+```
+
+We extract the log-transformed variables for the QQ-plot:
+
+```{r}
+log_vars <- paste0("log_", vars_to_plot)
+injury_df_log_subset <- injury_df_log |>
+  select(all_of(log_vars), Injury_Occurred)
+```
+
+We generate QQ-plots for the log-transformed variables:
+
+```{r}
+plot_qq(injury_df_log_subset, by = "Injury_Occurred")
+```
+
+We perform the normality test:
+
+```{r}
+normality(injury_df_log |> select(starts_with("log_"))) |>
+  mutate_if(is.numeric, ~ round(., 3)) |>
+  flextable()
+```
+
+After applying the logarithmic transformation, the Shapiro-Wilk normality test was conducted again to assess the distribution of the variables. The results indicate that the variables remain non-normally distributed. Consequently, non-parametric approaches are preferred for subsequent analyses.
+
+## Bivariate Analysis
+
+### Categorical variables
+
+#### Sport_Type ~ Injury_Occured
+
+```{r}
+ggbarstats(data  = injury_df, x = Injury_Occurred, y = Sport_Type, label = "both")
+```
+
+The p-value reported in the figure, derived from a Chi-square test, is not statistically significant. Therefore, no association between these two variables can be concluded.
+
+### Activity_Type ~ Injury_Occured 
+
+```{r}
+ggbarstats(data  = injury_df, x = Injury_Occurred, y = Activity_Type, label = "both")
+```
+
+Similarly, the high p-value indicates no statistically significant association between the type of activity performed and the occurrence of injury. Thus, we do not expect a relationship between these two variables.
+
+### Continuous variables
+
+We proceed by using a series of boxplots to identify which continuous variables may be of interest:
+
+```{r}
+plot_boxplot(injury_df, by = "Injury_Occurred")
+```
+
+It is noticed that the variables showing apparent differences between group means are limited to:
+Cumulative_Fatigue_Index, Impact_Force_Newtons, and Injury_Risk_Score.
+We will further examine these variables to assess their relevance.
+
+#### Impact_force_newton ~ Injury_Occured
+
+We apply the non-parametric Mann-Whitney test to compare the impact force between subjects with and without injury:
+
+```{r}
+ggbetweenstats(data = injury_df, x = Injury_Occurred, y = Impact_Force_Newtons, type = "np")
+```
+
+The results of the test indicate that impact forces differ significantly between injured and non-injured subjects, suggesting that higher impact forces may be associated with an increased risk of injury. Therefore, this variable is likely to be useful in a predictive model.
+
+#### Cumulative_Fatigue_Index ~ Injury_Occured
+
+```{r}
+ggbetweenstats(data = injury_df, x = Injury_Occurred, y = Cumulative_Fatigue_Index, type = "np")
+```
+
+Similarly, we observe that injuries are more prevalent among subjects exhibiting higher levels of fatigue.
+Thus, the conclusions parallel those of the previous analysis.
+
+#### Injury_Risk_Score \~ Injury_Occured
+
+```{r}
+ggbetweenstats(data = injury_df, x = Injury_Occurred, y = Injury_Risk_Score, type = "np")
+```
+
+The difference in means between groups is clearly notable in this case. However, we are somewhat concerned by the fact that the distributions appear quite similar across the two classes. Ideally, we would expect the distribution for non-injured subjects to be heavily concentrated at lower values with a tail extending towards higher scores, and conversely for injured subjects. This observation motivates the development of a novel method to estimate the probability of injury.
+
+## Confounders
+
+It is now necessary to verify the presence of confounders among the variables identified as relevant.
+
+### Correlation Matrix (Spearman) for Numerical Variables
+
+```{r}
+cc <- correlate(injury_df[,-12], method="spearman")
+plot(cc) +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1, size = 8),
+                 axis.text.y = ggplot2::element_text(size = 8))
+```
+
+Firstly, it should be noted that the variable Injury_Risk_Score has been excluded because it is an artificially derived measure rather than an inherent characteristic of the dataset, and it now serves as a target variable to be recalculated. Moreover, all observed correlations among the numerical variables are effectively negligible and not statistically meaningful. Therefore, we conclude that there are no confounders present among the numerical variables.
+
+### Kurskal-Wallis test fot categorical variables
+
+```{r}
+I_S <- kruskal.test(Impact_Force_Newtons ~ Sport_Type, data = injury_df)
+I_A <- kruskal.test(Impact_Force_Newtons ~ Activity_Type, data = injury_df)
+C_S <- kruskal.test(Cumulative_Fatigue_Index ~ Sport_Type, data = injury_df)
+C_A <- kruskal.test(Cumulative_Fatigue_Index ~ Activity_Type, data = injury_df)
+
+tavola <- data.frame(
+  K_W_Value = c(as.numeric(I_S$statistic), as.numeric(I_A$statistic), as.numeric(C_S$statistic), as.numeric(C_A$statistic)),
+  p_Value = c(as.numeric(I_S$p.value), as.numeric(I_A$p.value), as.numeric(C_S$p.value), as.numeric(C_A$p.value))
+)
+rownames(tavola) <- c("Impact_Force_Newtons ~ Sport_Type", "Impact_Force_Newtons ~ Activity_Type", "Cumulative_Fatigue_Index ~ Sport_Type", "Cumulative_Fatigue_Index ~ Activity_Type")
+tavola
+```
+
+Examining the p-values, it is evident that none of the pairs exhibit a statistically significant relationship. Therefore, no confounders are detected among the categorical variables either.
+
+## Predicitive model
+
+### Logistic regression
+
+We construct a logistic regression model including only two predictors—Impact_Force_Newtons and Cumulative_Fatigue_Index—as these have previously been identified as the only variables showing a significant relationship with the target variable.
+
+```{r}
+pred1 = glm(data = injury_df, Injury_Occurred ~ Impact_Force_Newtons + Cumulative_Fatigue_Index, family = binomial)
+summary(pred1)
+```
+
+The p-values confirm the statistical significance of both predictors.
+Next, we calculate the predicted probabilities of injury for each observation and classify cases using a threshold of 0.5:
+
+```{r}
+prob <- predict(pred1, type = "response")
+pred_class <- ifelse(prob > 0.5, 1, 0)
+```
+
+We then create the confusion matrix to compare predicted classifications against actual outcomes and compute performance metrics: accuracy, sensitivity, and specificity.
+
+```{r}
+conf_matrix <- table(Predicted = pred_class, Actual = injury_df$Injury_Occurred)
+print(conf_matrix)
+
+TP <- conf_matrix[2, 2]
+TN <- conf_matrix[1, 1]
+FP <- conf_matrix[2, 1]
+FN <- conf_matrix[1, 2]
+
+accuracy <- (TP + TN) / sum(conf_matrix)
+sensitivity <- TP / (TP + FN) 
+specificity <- TN / (TN + FP) 
+
+cat("Accuracy: ", round(accuracy, 3), "\n")
+cat("Sensitivity (Recall): ", round(sensitivity, 3), "\n")
+cat("Specificity: ", round(specificity, 3), "\n")
+```
+
+To evaluate the model’s discriminative ability across all classification thresholds, we plot the Receiver Operating Characteristic (ROC) curve and compute the Area Under the Curve (AUC):
+
+```{r}
+roc_obj <- roc(injury_df$Injury_Occurred, prob)
+auc_val <- auc(roc_obj)
+plot(roc_obj, col = "blue", main = "ROC Curve")
+abline(a = 0, b = 1, lty = 2, col = "gray")
+
+cat("AUC: ", round(auc_val, 3), "\n")
+```
+```{r}
+residualPlots(pred1)
+```
+
+While the ROC and accuracy results are not fully satisfactory, the residual analysis suggests a good fit overall. The diagnostic tests confirm the absence of non-linear relationships. The only notable observation is a slight deviation at the extremes and a mild curved pattern. Consequently, we proceed to examine the interaction between the two predictors to assess whether a more complex model improves performance.
+
+```{r}
+pred2 = glm(data = injury_df, Injury_Occurred ~ Impact_Force_Newtons*Cumulative_Fatigue_Index, family = binomial)
+summary(pred2)
+```
+
+The observed p-values do not provide encouraging evidence for the interaction term. Consequently, model performance has not improved.
+
+```{r}
+prob <- predict(pred2, type = "response")
+pred_class <- ifelse(prob > 0.5, 1, 0)
+conf_matrix <- table(Predicted = pred_class, Actual = injury_df$Injury_Occurred)
+print(conf_matrix)
+
+TP <- conf_matrix[2, 2]
+TN <- conf_matrix[1, 1]
+FP <- conf_matrix[2, 1]
+FN <- conf_matrix[1, 2]
+
+accuracy <- (TP + TN) / sum(conf_matrix)
+sensitivity <- TP / (TP + FN) 
+specificity <- TN / (TN + FP) 
+
+cat("Accuracy: ", round(accuracy, 3), "\n")
+cat("Sensitivity (Recall): ", round(sensitivity, 3), "\n")
+cat("Specificity: ", round(specificity, 3), "\n")
+
+roc_obj <- roc(injury_df$Injury_Occurred, prob)
+auc_val <- auc(roc_obj)
+plot(roc_obj, col = "blue", main = "ROC Curve")
+abline(a = 0, b = 1, lty = 2, col = "gray")
+
+cat("AUC: ", round(auc_val, 3), "\n")
+```
+
+Given these results, we now attempt an alternative modeling approach. To preserve a degree of interpretability, we utilize decision trees. 
+
+### Decision tree
+
+We build a decision tree model using the same two predictors employed in the logistic regression.
+To avoid overfitting, we set complexity and minimum split parameters.
+
+```{r}
+tree_model <- rpart(Injury_Occurred ~ Impact_Force_Newtons + Cumulative_Fatigue_Index,
+                    data = injury_df, method = "class", control = rpart.control(minsplit = 20, cp = 0.001))
+```
+
+Next, we visualize the tree structure:
+
+```{r}
+rpart.plot(tree_model, type = 3, extra = 102, fallen.leaves = TRUE)
+```
+
+We then perform class predictions and compute the confusion matrix to evaluate model performance:
+
+```{r}
+pred_class <- predict(tree_model, type = "class")  
+pred_prob <- predict(tree_model)[, 2]             
+
+conf_matrix <- table(Predicted = pred_class, Actual = injury_df$Injury_Occurred)
+print(conf_matrix)
+
+TP <- conf_matrix["Yes", "Yes"]
+TN <- conf_matrix["No", "No"]
+FP <- conf_matrix["Yes", "No"]
+FN <- conf_matrix["No", "Yes"]
+
+accuracy <- (TP + TN) / sum(conf_matrix)
+sensitivity <- TP / (TP + FN)
+specificity <- TN / (TN + FP)
+
+cat("Accuracy: ", round(accuracy, 3), "\n")
+cat("Sensitivity: ", round(sensitivity, 3), "\n")
+cat("Specificity: ", round(specificity, 3), "\n")
+```
+
+To further assess model performance, we plot the Receiver Operating Characteristic (ROC) curve and calculate the Area Under the Curve (AUC):
+
+```{r}
+# 7. ROC Curve e AUC
+roc_obj <- roc(injury_df$Injury_Occurred, pred_prob)
+auc_val <- auc(roc_obj)
+
+plot(roc_obj, col = "darkred", main = "ROC Curve - Decision Tree")
+abline(a = 0, b = 1, lty = 2, col = "gray")
+cat("AUC: ", round(auc_val, 3), "\n")
+```
+
+Finally, we evaluate model calibration to ensure consistent performance across the full range of predicted probabilities:
+
+```{r}
+hoslem.test(as.numeric(as.character(injury_df$Injury_Occurred)), pred_prob, g = 10)
+```
+
+The significant p-value and the good AUC of 0.807 suggest that the model is well calibrated. To visually confirm this, we plot the calibration curve, as the Hosmer-Lemeshow test is better suited for parametric models:
+
+```{r}
+df <- data.frame(obs = factor(injury_df$Injury_Occurred), pred = pred_prob)
+cal <- calibration(obs ~ pred, data = df, class = "Yes", cuts = 10)
+plot(cal)
+```
+
+The calibration plot confirms that the decision tree is well calibrated and thus represents a reliable predictive model. 
+
+## New Injury_Risk_Table
+
+We now want to build a sort of look-up table for the Injury risk probability given by the tree and we thought to build a sort of heatmap on the 
+Cumulative_fatigue_index - Impact_Force_Newton plane.
+
+```{r}
+x_seq <- seq(
+  from = min(injury_df$Impact_Force_Newtons, na.rm = TRUE),
+  to   = max(injury_df$Impact_Force_Newtons, na.rm = TRUE),
+  length.out = 20    # risoluzione aumentata
+)
+y_seq <- seq(
+  from = min(injury_df$Cumulative_Fatigue_Index, na.rm = TRUE),
+  to   = max(injury_df$Cumulative_Fatigue_Index, na.rm = TRUE),
+  length.out = 20
+)
+grid <- expand.grid(
+  Impact_Force_Newtons     = x_seq,
+  Cumulative_Fatigue_Index = y_seq
+)
+grid$pred_prob <- predict(
+  tree_model,
+  newdata = grid,
+  type   = "prob"
+)[, "Yes"]
+
+grid$fill <- with(grid,
+  ifelse(is.na(pred_prob), "green",
+    ifelse(pred_prob > 0.75, "red",
+      ifelse(pred_prob > 0.5, "yellow", "green")
+    )
+  )
+)
+
+grid <- grid %>%
+  mutate(prob_range = case_when(
+    fill == "green"  ~ "0.0-0.50",
+    fill == "yellow" ~ "0.50-0.75",
+    fill == "red"    ~ "> 0.75",
+    TRUE             ~ NA_character_
+  )) %>%
+  mutate(prob_range = factor(prob_range,
+    levels = c("> 0.75","0.0-0.50", "0.50-0.75")
+  ))
+
+
+ggplot(grid, aes(x = Impact_Force_Newtons, y = Cumulative_Fatigue_Index)) +
+  geom_tile(aes(fill = prob_range), na.rm = TRUE) +
+  scale_fill_manual(
+    name = "Probabilità\nInfortunio",
+    values = c(
+      "0.0-0.50" = "green",
+      "0.50-0.75" = "yellow",
+      "> 0.75" = "red"
+    )
+  ) +
+  labs(
+    x = "Impact Force (Newtons)",
+    y = "Cumulative Fatigue Index",
+    title = "Aree con P(infortunio) > 0.60"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
+
+##Conclusions
+
+This analysis of college sports injuries has provided useful insights into the factors associated with injury occurrence. We were able to identify key variables that contribute to the risk of injury thanks to our classification models, even if both approaches showed strengths and limitations in predictive performance. The analysis offered a broader understanding of how different factors, such as type of sport or physical demands, might influence injury occurrence.
+This type of approach could be a valuable tool for athletes, coaches, trainers, and medical staff to make more informed decisions and reduce injury risk.
+
+
+
+
+
+
