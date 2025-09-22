@@ -1,0 +1,9 @@
+
+
+! Sorry, but C:\Users\pitom\AppData\Local\Programs\MiKTeX\miktex\bin\x64\pdflatex.exe did not succeed for the following reason:
+
+!   MiKTeX cannot retrieve attributes for the directory 'C:\Program Files\RStudio\resources\app\bin\rpostback.exe\'.
+
+! The log file hopefully contains the information to get MiKTeX going again:
+
+!   C:\Users\pitom\AppData\Local\MiKTeX\miktex\log\pdflatex.log

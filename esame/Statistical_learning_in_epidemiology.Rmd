@@ -65,7 +65,7 @@ library(caret)
 Importing and reading the file saved as a CSV:
 
 ```{r}
-injury_df <- read.csv("sports_injury_detection_dataset.csv", header = TRUE, sep = ",")
+injury_df <- read.csv("sports_injury_detection_dataset.csv", header = TRUE, sep = ",") 
 ```
 
 ## Esplorazione dei dati
@@ -158,7 +158,7 @@ vars_to_plot <- c(
 )
 
 injury_df_log <- injury_df |>
-  filter(across(all_of(vars_to_plot), ~ . > 0)) |>
+  filter(if_any(all_of(vars_to_plot), ~ . > 0)) |>
   mutate(across(all_of(vars_to_plot), log, .names = "log_{.col}"))
 ```
 
@@ -270,11 +270,43 @@ tavola
 Andando a vedere i p-Value notiamo facilmente che nessuna delle coppie ha una relazione significativa. Quindi nemmeno tra le variabili categoriali ci sono dei confaunders
 
 
+```{r}
+check_correlation_cat_num <- function(df) {
+  results <- data.frame(var_num = character(), var_cat = character(), p_value = numeric())
+
+  num_vars <- names(df)[sapply(df, is.numeric)]
+  cat_vars <- names(df)[sapply(df, function(x) is.factor(x) || is.character(x))]
+
+  for (num in num_vars) {
+    for (cat in cat_vars) {
+      tmp <- df[, c(num, cat)]
+      tmp <- na.omit(tmp)
+      tmp[[cat]] <- as.factor(tmp[[cat]])
+
+      if (nlevels(tmp[[cat]]) > 1) {
+        p <- tryCatch({
+          kruskal.test(tmp[[num]] ~ tmp[[cat]])$p.value
+        }, error = function(e) NA)
+
+        results <- rbind(results, data.frame(var_num = num, var_cat = cat, p_value = p))
+      }
+    }
+  }
+
+  return(results)
+}
+
+result <- check_correlation_cat_num(injury_df[-c(1,3,12,13)])
+print(result)
+```
+
+
 ## Modello predittivo
 
 ### Regressione logistica
 
 Costruiamo un modello logistico con solo due variabili (Impact_Force_Newtons e Cumulative_Fatigue_Index), poichè abbiamo gia osservato essere le uniche con una relazione significativa verso la variabile target.
+
 
 ```{r}
 pred1 = glm(data = injury_df, Injury_Occurred ~ Impact_Force_Newtons + Cumulative_Fatigue_Index, family = binomial)
@@ -357,7 +389,65 @@ abline(a = 0, b = 1, lty = 2, col = "gray")
 
 cat("AUC: ", round(auc_val, 3), "\n")
 ```
-Proviamo quindi ad utilizzare un modello completamente diverso. Per poter mantenere un minimo di spiegabilità usiamo degli alberi 
+Non sono presenti differenze con il modello precedente in termini di prestazioni. Proviamo quindi ad aggiungere una ad una le altre variabili e vedere se qualcuna di queste risulta utile allo scopo predittivo
+
+```{r}
+levels(injury_df$Injury_Occurred) = c(0,1)
+# Definisci le feature di base del tuo modello
+base_features <- c("Impact_Force_Newtons", "Cumulative_Fatigue_Index")
+
+# Identifica tutte le altre feature disponibili nel tuo dataset che non sono la variabile target o le feature base
+other_features <- setdiff(names(injury_df), c("Injury_Occurred", "Athlete_ID","Session_Date", base_features))
+
+# Crea una lista vuota per salvare i risultati
+results <- list()
+
+# Ciclo attraverso ogni "altra" feature
+for (feature in other_features) {
+  cat(paste0("--- Valutazione del modello con l'aggiunta di: ", feature, " ---\n"))
+  
+  # Costruisci la formula del modello dinamicamente
+  formula_str <- paste("Injury_Occurred ~", paste(c(base_features, feature), collapse = " + "))
+  current_formula <- as.formula(formula_str)
+  
+  pred = glm(data = injury_df, current_formula, family = binomial)
+  
+  # Previsioni sull'intero dataset (che è lo stesso usato per l'addestramento)
+  
+  probabilities <- predict(pred, newdata = injury_df, type = "response")  # Probabilità della classe positiva
+  predictions <- ifelse(probabilities > 0.5, 1, 0)                         # Classi predette binarie  
+  predictions <- factor(predictions, levels = levels(injury_df$Injury_Occurred)) # Per compatibilità
+  
+  # Calcolo delle metriche
+  # Matrice di Confusione per Precision, Recall, Accuracy
+  conf_matrix <- confusionMatrix(predictions, injury_df$Injury_Occurred)
+  
+  accuracy <- conf_matrix$overall["Accuracy"]
+  precision <- conf_matrix$byClass["Pos Pred Value"] # Precisione della classe positiva
+  recall <- conf_matrix$byClass["Sensitivity"]      # Recall (Sensibilità) della classe positiva
+  
+  # AUC (Area Under the Curve)
+  roc_curve <- roc(response = injury_df$Injury_Occurred, predictor = probabilities)
+  auc_val <- auc(roc_curve)
+  
+  # Stampa le metriche per il modello corrente
+  cat(paste0("  Accuracy: ", round(accuracy, 4), "\n"))
+  cat(paste0("  Precision: ", round(precision, 4), "\n"))
+  cat(paste0("  Recall: ", round(recall, 4), "\n"))
+  cat(paste0("  AUC: ", round(auc_val, 4), "\n"))
+  
+  # Salva i risultati
+  results[[feature]] <- list(
+    formula = formula_str,
+    accuracy = accuracy,
+    precision = precision,
+    recall = recall,
+    auc = auc_val
+  )
+}
+```
+Come prima le prestazioni rimangono tutte comparabili sia tra loro che al modello base. Il modello logistico sembra quindi non in grado di catturare bene le relazioni dei dati. 
+Cerchiamo quindi di usare un modello completamente diverso
 
 
 ### Decision tree
@@ -366,6 +456,7 @@ Costruiamo un albero con le stesse due variabili usate nella regressione logisti
 Impostiamo i parametri di complessità e di minimo split per evitare overfitting.
 
 ```{r}
+levels(injury_df$Injury_Occurred) = c('No','Yes')
 tree_model <- rpart(Injury_Occurred ~ Impact_Force_Newtons + Cumulative_Fatigue_Index,
                     data = injury_df, method = "class", control = rpart.control(minsplit = 20, cp = 0.001))
 ```
@@ -410,6 +501,66 @@ plot(roc_obj, col = "darkred", main = "ROC Curve - Decision Tree")
 abline(a = 0, b = 1, lty = 2, col = "gray")
 cat("AUC: ", round(auc_val, 3), "\n")
 ```
+Anche con l'albero andiamo a vedere se le altre variabili sono utili alla classificazione
+```{r}
+# Definisci le feature di base del tuo modello
+base_features <- c("Impact_Force_Newtons", "Cumulative_Fatigue_Index")
+
+# Identifica tutte le altre feature disponibili nel tuo dataset che non sono la variabile target o le feature base
+other_features <- setdiff(names(injury_df), c("Injury_Occurred","Athlete_ID","Session_Date", base_features))
+
+# Crea una lista vuota per salvare i risultati
+results <- list()
+
+# Ciclo attraverso ogni "altra" feature
+for (feature in other_features) {
+  cat(paste0("--- Valutazione del modello con l'aggiunta di: ", feature, " ---\n"))
+  
+  # Costruisci la formula del modello dinamicamente
+  formula_str <- paste("Injury_Occurred ~", paste(c(base_features, feature), collapse = " + "))
+  current_formula <- as.formula(formula_str)
+  
+  # Addestra il modello decisionale sull'intero dataset
+  tree_model <- rpart(current_formula,
+                      data = injury_df, # Usiamo l'intero dataset qui
+                      method = "class",
+                      control = rpart.control(minsplit = 20, cp = 0.001))
+  
+  # Previsioni sull'intero dataset (che è lo stesso usato per l'addestramento)
+  predictions <- predict(tree_model, newdata = injury_df, type = "class")
+  probabilities <- predict(tree_model, newdata = injury_df, type = "prob")[, 2] # Probabilità della classe positiva
+  
+  # Calcolo delle metriche
+  # Matrice di Confusione per Precision, Recall, Accuracy
+  conf_matrix <- confusionMatrix(predictions, injury_df$Injury_Occurred)
+  
+  accuracy <- conf_matrix$overall["Accuracy"]
+  precision <- conf_matrix$byClass["Pos Pred Value"] # Precisione della classe positiva
+  recall <- conf_matrix$byClass["Sensitivity"]      # Recall (Sensibilità) della classe positiva
+  
+  # AUC (Area Under the Curve)
+  roc_curve <- roc(response = injury_df$Injury_Occurred, predictor = probabilities)
+  auc_val <- auc(roc_curve)
+  
+  # Stampa le metriche per il modello corrente
+  cat(paste0("  Accuracy: ", round(accuracy, 4), "\n"))
+  cat(paste0("  Precision: ", round(precision, 4), "\n"))
+  cat(paste0("  Recall: ", round(recall, 4), "\n"))
+  cat(paste0("  AUC: ", round(auc_val, 4), "\n"))
+  
+  # Salva i risultati
+  results[[feature]] <- list(
+    formula = formula_str,
+    accuracy = accuracy,
+    precision = precision,
+    recall = recall,
+    auc = auc_val
+  )
+}
+```
+Il modello migliore risulta esserre quello base, nessuna delle altre variabili aggiunge informazione
+
+
 Valutiamo infine la calibrazione del modello per controllare che funzioni bene su tutto lo spettro delle predizioni
 
 ```{r}
@@ -490,6 +641,14 @@ ggplot(grid, aes(x = Impact_Force_Newtons, y = Cumulative_Fatigue_Index)) +
 
 ##Conclusioni
 ---
+Lo scopo dello studio era creare un modello predittivo semplice per la probabilità di infortunarsi durante un allenamento. I dati sono stati raccolti facendo semplicemente allenare degli atleti, registrando alcune loro prestazioni fisiche e se si sono infotunati o no durante quella specifica sessione di allenamento. 
+Supponiamo quindi che questo sia un population-based cohort retrospective observational study con un follow-up estremamente breve, una singola sessione.
+Tra le feature raccolte, dopo una serie di controlli sulla forma delle distribuzioni univariate e sulla correlazione tra di esse, ne sono state individuate solo 2 significative alla predizione di infortuni: cumulativ_index_fatigue e impact_force_newtons.
+Siamo quindi passati a progettare una serie di modelli predittivi:
+1. Prima un modello logistico dove abbiamo considerato solo le 2 feature significative, affiancato da un controllo sulle prestazioni dei modelli tri-variati che includevano tutte le combinazioni tra le feature significative e quelle non, dove però non abbiamo riscontrato risultati soddisfacenti.
+2. Secondo un albero decisionale, anche qui siamo partiti con solo le 2 feature significative e abbiamo poi confrontate le prestazioni di questo modello base con quelli che usavano un'altra feature non significativa a rotazione. Dai vari criteri usati per la valutazione delle performance (accuracy, precision, recall, AUC, hosmer lemeshow) il modello ad albero decisionale risulta buono. 
+I risultati della tabella sono pero ambigui: ci si aspetterebbe, per caratteristiche biologiche, un comportamento più continuo, nel senso di non avere in piccoli range delle feature grandi differenze del rischio, e un comportamento più uniforme, dove l'aumentare di entrambe le caratteristiche porta ad un aumento del rischio. Questo però non avviene e infatti sia le zone ad alto che a basso rischio sono sparse su tutta la tabella. 
+Un risultato del genere ci fa pensare che sia presente una forte componente esterna, non quindi legata alle caratteristiche fisiche dell'atleta, che però il dataset per come è fatto non ci permette di indagare. Sarebbe interessante in uno studio reale poter sapere anche il tipo di infortunio subito, per capire se è magari legato a disattenzione o esercizi come streatching da senza riscaldamento che possono provocare infortuni a basso sforzo e fatica, o la modalità con il quale si è verificato. 
 
 
 
